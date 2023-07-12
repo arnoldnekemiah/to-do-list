@@ -14,6 +14,7 @@ module.exports = {
     static: './dist',
 
   },
+  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'To-do list',

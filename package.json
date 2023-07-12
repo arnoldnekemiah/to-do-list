@@ -1,11 +1,12 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "to-do-list",
   "version": "1.0.0",
-  "description": "This is a boiler plate for my webpack starter guide",
+  "description": "In this project, I will build a simple HTML list of To Do tasks. The list will be styled according to the specifications listed later in this lesson. ",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
+    "watch": "webpack --watch",
     "build": "webpack"
   },
   "repository": {
