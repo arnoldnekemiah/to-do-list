@@ -7,40 +7,6 @@ const updateIndexes = () => {
   });
 };
 
-// Function to add a new task
-const addTask = (description) => {
-  const newTask = {
-    description,
-    completed: false,
-    index: tasks.length + 1,
-  };
-
-  tasks.push(newTask);
-  // eslint-disable-next-line no-use-before-define
-  saveTasks();
-  // eslint-disable-next-line no-use-before-define
-  renderTasks();
-};
-
-// Function to delete a task
-const deleteTask = (index) => {
-  tasks.splice(index, 1);
-  updateIndexes();
-  // eslint-disable-next-line no-use-before-define
-  saveTasks();
-  // eslint-disable-next-line no-use-before-define
-  renderTasks();
-};
-
-// Function to edit a task
-const editTask = (index, newDescription) => {
-  tasks[index].description = newDescription;
-  // eslint-disable-next-line no-use-before-define
-  saveTasks();
-  // eslint-disable-next-line no-use-before-define
-  renderTasks();
-};
-
 // Function to save tasks in local storage
 const saveTasks = () => {
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -80,6 +46,38 @@ const renderTasks = () => {
   });
 };
 
+// Function to add a new task
+const addTask = (description) => {
+  const newTask = {
+    description,
+    completed: false,
+    index: tasks.length + 1,
+  };
+
+  tasks.push(newTask);
+  saveTasks();
+  renderTasks();
+};
+
+// Function to delete a task
+const deleteTask = (index) => {
+  tasks.splice(index, 1);
+  updateIndexes();
+  saveTasks();
+  renderTasks();
+};
+
+// Function to edit a task
+const editTask = (index, newDescription) => {
+  tasks[index].description = newDescription;
+  saveTasks();
+  renderTasks();
+};
+
 export {
-  addTask, deleteTask, editTask, saveTasks, loadTasks, renderTasks,
+  addTask,
+  deleteTask,
+  editTask,
+  loadTasks,
+  renderTasks,
 };
