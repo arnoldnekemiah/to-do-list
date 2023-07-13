@@ -1,3 +1,81 @@
-.hello {
-    color: red;
-  }
+body {
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+  background-color: antiquewhite;
+}
+
+.headine {
+  display: flex;
+  width: 97%;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(184, 181, 181);
+  padding-bottom: 1em;
+  padding-inline: 1em;
+}
+
+.listItmes {
+  list-style: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgb(184, 181, 181);
+  padding-bottom: 1em;
+  padding-inline: 1em;
+}
+
+#todo {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(184, 181, 181);
+  padding-bottom: 1em;
+  padding-inline: 1em;
+  width: 97%;
+}
+
+.container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 200px;
+  margin-left: 150px;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 2px 5px 5px #4a4343;
+  padding-top: 1em;
+  position: relative;
+}
+
+#refresh {
+  color: rgb(117, 112, 112);
+  margin-top: 20px;
+}
+
+span {
+  margin-left: 10px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.enter {
+  position: absolute;
+  color: rgb(184, 181, 181);
+  right: 2%;
+  top: 0;
+}
+
+.fa-ellipsis-v {
+  position: absolute;
+  right: 2%;
+  color: rgb(184, 181, 181);
+}
+
+button {
+  border: none;
+  text-align: center;
+  padding-block: 1em;
+  font-size: 1rem;
+  color: rgb(65, 56, 56);
+}
