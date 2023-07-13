@@ -21,6 +21,20 @@ const loadTasks = () => {
   return tasks;
 };
 
+// Function to delete a task
+const deleteTask = (index) => {
+  tasks.splice(index, 1);
+  updateIndexes();
+  saveTasks();
+};
+
+// Function to edit a task
+const editTask = (index, newDescription) => {
+  tasks[index].description = newDescription;
+  saveTasks();
+  // eslint-disable-next-line no-use-before-define
+  renderTasks();
+};
 // Function to render tasks
 const renderTasks = () => {
   const taskList = document.getElementById('task-container');
@@ -31,17 +45,86 @@ const renderTasks = () => {
   tasks.forEach((task, index) => {
     task.index = index + 1;
     const li = document.createElement('li');
-    li.classList = 'listItmes';
+    li.classList = 'listItems';
+
+    // Create checkbox
     const check = document.createElement('input');
     check.type = 'checkbox';
+    check.checked = task.completed;
+    check.addEventListener('change', () => {
+      task.completed = check.checked;
+      saveTasks();
+      renderTasks();
+    });
+    check.classList.add('checker');
+
+    // Create div for task description and icons
+    const taskDiv = document.createElement('div');
+    taskDiv.classList.add('task-info');
+
+    if (task.completed) {
+      // Task is checked, replace ellipsis with trash icon
+      const trash = document.createElement('i');
+      trash.classList.add('fas', 'fa-trash');
+      trash.addEventListener('click', () => {
+        deleteTask(index);
+        saveTasks();
+        renderTasks();
+      });
+
+      taskDiv.appendChild(trash);
+    } else {
+      // Task is not checked, show ellipsis icon
+      const ellipsis = document.createElement('i');
+      ellipsis.classList.add('fas', 'fa-ellipsis-v');
+      ellipsis.setAttribute('aria-hidden', 'true');
+
+      taskDiv.appendChild(ellipsis);
+    }
+
+    // Create task description span
     const span = document.createElement('span');
     span.textContent = task.description;
+
+    span.addEventListener('click', () => {
+      if (task.completed) {
+        return; // Skip editing if task is completed
+      }
+
+      // Create input field for editing
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.value = task.description;
+
+      input.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const newDescription = input.value.trim();
+          if (newDescription !== '') {
+            editTask(index, newDescription);
+            span.textContent = newDescription;
+            li.replaceChild(taskDiv, input);
+          }
+        }
+      });
+
+      input.addEventListener('blur', () => {
+        const newDescription = input.value.trim();
+        if (newDescription !== '') {
+          editTask(index, newDescription);
+          span.textContent = newDescription;
+          li.replaceChild(taskDiv, input);
+        }
+      });
+
+      li.replaceChild(input, span);
+      input.focus();
+    });
+
     li.appendChild(check);
+    li.appendChild(taskDiv);
     li.appendChild(span);
-    const ellipsis = document.createElement('i');
-    ellipsis.classList.add('fa', 'fa-ellipsis-v');
-    ellipsis.setAttribute('aria-hidden', 'true');
-    li.appendChild(ellipsis);
+
     taskList.appendChild(li);
   });
 };
@@ -55,21 +138,6 @@ const addTask = (description) => {
   };
 
   tasks.push(newTask);
-  saveTasks();
-  renderTasks();
-};
-
-// Function to delete a task
-const deleteTask = (index) => {
-  tasks.splice(index, 1);
-  updateIndexes();
-  saveTasks();
-  renderTasks();
-};
-
-// Function to edit a task
-const editTask = (index, newDescription) => {
-  tasks[index].description = newDescription;
   saveTasks();
   renderTasks();
 };
