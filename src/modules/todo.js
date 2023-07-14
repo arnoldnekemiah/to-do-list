@@ -28,18 +28,17 @@ const deleteTask = (index) => {
   saveTasks();
 };
 
-// Function to edit a task
-const editTask = (index, newDescription) => {
-  tasks[index].description = newDescription;
-  saveTasks();
-  // eslint-disable-next-line no-use-before-define
-  renderTasks();
-};
 // Function to render tasks
 const renderTasks = () => {
   const taskList = document.getElementById('task-container');
   taskList.innerHTML = '';
 
+  // Function to edit a task
+  const editTask = (index, newDescription) => {
+    tasks[index].description = newDescription;
+    saveTasks();
+    renderTasks();
+  };
   tasks.sort((a, b) => a.index - b.index);
 
   tasks.forEach((task, index) => {
@@ -86,49 +85,39 @@ const renderTasks = () => {
     const span = document.createElement('span');
     span.textContent = task.description;
 
-    span.addEventListener('click', () => {
-      if (task.completed) {
-        return; // to skip editing if task is checked
-      }
+    // Create input field for editing
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = task.description;
+    input.style.display = 'none';
 
-      // Create input field for editing
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = task.description;
-
-      input.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          event.preventDefault(); // Prevent the default behavior of the Enter key
-          const newDescription = input.value.trim();
-          if (newDescription !== '') {
-            try {
-              editTask(index, newDescription);
-              span.textContent = newDescription;
-              li.replaceChild(span, input); // Replace span with input
-            } catch (error) {
-              // eslint-disable-next-line no-console
-              console.error('Error occurred while editing task:', error);
-            }
-          }
-        }
-      });
-
-      input.addEventListener('blur', () => {
+    input.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default behavior of the Enter key
         const newDescription = input.value.trim();
         if (newDescription !== '') {
           editTask(index, newDescription);
           span.textContent = newDescription;
-          li.replaceChild(taskDiv, input);
+          input.style.display = 'none';
+          span.style.display = 'block';// Replace span with input
         }
-      });
+      }
+    });
 
-      li.replaceChild(input, span);
+    span.addEventListener('click', () => {
+      if (task.completed) {
+        return; // to skip editing if task is checked
+      }
+      input.style.display = 'block';
+      span.style.display = 'none';
+
       input.focus();
     });
 
     li.appendChild(check);
     li.appendChild(taskDiv);
     li.appendChild(span);
+    li.appendChild(input);
 
     taskList.appendChild(li);
   });
@@ -150,7 +139,6 @@ const addTask = (description) => {
 export {
   addTask,
   deleteTask,
-  editTask,
   loadTasks,
   renderTasks,
 };
