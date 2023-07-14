@@ -22,6 +22,7 @@ button.addEventListener('click', () => {
 
 input.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
+    event.preventDefault();
     const description = input.value;
     if (description.trim() !== '') {
       addTask(description);

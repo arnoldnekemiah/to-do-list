@@ -54,6 +54,10 @@ span {
   margin-left: 20px;
 }
 
+.remover {
+  display: none;
+}
+
 .checker {
   position: absolute;
 }

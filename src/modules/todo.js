@@ -88,7 +88,7 @@ const renderTasks = () => {
 
     span.addEventListener('click', () => {
       if (task.completed) {
-        return; // Skip editing if task is completed
+        return; // to skip editing if task is checked
       }
 
       // Create input field for editing
@@ -98,12 +98,17 @@ const renderTasks = () => {
 
       input.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-          event.preventDefault();
+          event.preventDefault(); // Prevent the default behavior of the Enter key
           const newDescription = input.value.trim();
           if (newDescription !== '') {
-            editTask(index, newDescription);
-            span.textContent = newDescription;
-            li.replaceChild(taskDiv, input);
+            try {
+              editTask(index, newDescription);
+              span.textContent = newDescription;
+              li.replaceChild(span, input); // Replace span with input
+            } catch (error) {
+              // eslint-disable-next-line no-console
+              console.error('Error occurred while editing task:', error);
+            }
           }
         }
       });
