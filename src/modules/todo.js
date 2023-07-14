@@ -123,6 +123,14 @@ const renderTasks = () => {
   });
 };
 
+const clearCompletedButton = document.querySelector('.complete');
+clearCompletedButton.addEventListener('click', () => {
+  tasks = tasks.filter((task) => !task.completed);
+  updateIndexes();
+  saveTasks();
+  renderTasks();
+});
+
 // Function to add a new task
 const addTask = (description) => {
   const newTask = {
