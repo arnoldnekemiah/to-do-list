@@ -69,7 +69,7 @@ This project is entirely built with HTML & CSS
 To get a local copy up and running, follow these steps.
 1. Clone this repository
    run 
-   **git clone git@github.com:arnoldnekemiah/To-do-list.git**
+   **git clone https://github.com/arnoldnekemiah/to-do-list.git**
 
 2. Open the project in a text editor
 3. Open a terminal via CMD or in your code editor
