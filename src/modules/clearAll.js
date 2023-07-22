@@ -1,6 +1,7 @@
 import {
-  tasks, updateIndexes, saveTasks, renderTasks,
+  tasks, updateIndexes, saveTasks,
 } from './todo.js';
+import renderTasks from './renderTasks.js';
 
 const clearCompletedButton = document.querySelector('.complete');
 clearCompletedButton.addEventListener('click', () => {
