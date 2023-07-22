@@ -1,7 +1,7 @@
 import './style.css';
-import {
-  addTask, loadTasks, renderTasks,
-} from './modules/todo.js';
+import addTask from './modules/add.js';
+import { loadTasks } from './modules/todo.js';
+import renderTasks from './modules/renderTasks.js';
 
 loadTasks();
 // Call renderTasks to initially render tasks
